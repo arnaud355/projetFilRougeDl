@@ -1,0 +1,95 @@
+Mon projet s'articule autour des modèles GAN (Génerative adversarial network).
+Je trouvais le GAN fantastique et magique... avant la formation data ia débutée
+en juillet 2019.
+
+Aujourd'hui, sachant les mécanismes mathématiques qu'il y a derrière je ne trouve
+plus ce genre de modèles magiques, mais néanmoins que je continue à trouver les
+mosèles de GAN fantastique. 
+
+Le GAN: Générer de nouvelles instances, de nouvelles images, qui n'existe pas,
+sur la base de données d'exemples.
+
+Mon projet: Créer son avatar unique sur la base d'un thème donnée via une application,
+EE: "Effigies edification".
+Cible: Des centaines de millions de comptes de joueurs de jeu vidéo dans le monde, 
+sur différentes plateformes, des centaines de millions de comptes de messagerie type
+emailing, et la possibilité sur ces comptes de choisir une image au choix, ou
+personnalisée.
+
+Echange potentiel entre un client et prospect ayant une relation d'amitié:
+-Il est cool ton avatar, ton image. Tu l'as eu où ?
+
+-Je l'ai eu sur l'appli EE, Effigies edification.
+
+-D'accord, mais le problème c'est qu'on aura le même! ça ne te dérange pas ?
+
+-Non, tu choisis ton thème, par exemple le thème "Inspiration d'une saga intergalactique",
+en faite c'est des images du genre Star Wars, et l'appli te génère une image
+qui n'existait pas, si tu n'est pas satisfait tu relance l'application.
+à la fin tu as une image que tu payes 10 centimes d'euros mais qui est unique.
+
+-à c'est cool ça, ta propre image, sans avoir besoin d'être graphiste. Je vais y aller
+faire un tour...
+
+  
+Application Gan:
+Génération de planches de designs pour l’automobile, le prêt-à-porter, l’ameublement, etc
+
+Génération de nouveaux personnages et de maps (i.e. décors) évolutives pour les jeux vidéo
+
+Génération de dessins techniques pour l’industrie (chassis, ailes...).
+
+Et pourquoi pas l’écriture de textes (poésie, essais, romans, notes de synthèses, etc)?
+Rnn,LSTM, modèles bayesiens plus appropriés.
+
+Travail de pédagogie à faire : qu'ils voient le GAN comme une d'assistance,
+mieux une source d'inspiration, au même titre que d'aller se promener dans la Nature,
+d'aller au cinéma.
+ 
+En termes techniques, les GAN reposent sur l’entrainement non supervisé 
+(unsupervised learning) de deux réseaux de neurones artificiels appelés 
+Générateur et Discriminateur. Ces deux réseaux s’entrainent l’un l’autre dans le cadre 
+d’une relation contradictoire :
+
+le Générateur est en charge de créer des designs (ex : des images)
+le Discriminateur reçoit des designs provenant (i) du générateur et (ii) 
+d’une base de données constituée de designs réels. Il est en charge d’identifier la source de chaque design et ainsi de deviner si ces designs sont réels ou s’ils ont été générés par le Générateur.
+A la suite du travail du Discriminateur, deux boucles de feedbacks transmettent aux 
+deux réseaux de neurones l’identité des designs sur lesquels ils doivent s’améliorer.
+
+Le Générateur reçoit l’identité des designs sur lesquels il a été démasqué par le 
+Discriminateur,
+Le Discriminateur reçoit l’identité des designs sur lesquels il a été trompé par 
+le Générateur.
+Les deux algorithmes entretiennent donc une relation gagnant-gagnant d’amélioration
+ continue : le Générateur apprend à créer des designs de plus en plus réalistes 
+et le Discriminateur apprend à identifier de mieux en mieux les designs réels 
+de ceux provenant du Générateur.
+
+Les différentes architectures existantes pour le GAN:
+Auto encoders : images générérés ne sont pas fines.
+DCGAN
+Here is the summary of DCGAN:
+Replace all max pooling with convolutional stride
+Use transposed convolution for upsampling.
+Eliminate fully connected layers.
+Use Batch normalization except the output layer for the generator 
+and the input layer of the discriminator.
+Use ReLU in the generator except for the output which uses tanh.
+Use LeakyReLU in the discriminator.
+
+
+Here are the tuning tips quote directly from the paper.
+All models were trained with mini-batch stochastic gradient descent (SGD)
+ with a mini-batch size of 128. All weights were initialized 
+from a zero-centered Normal distribution with standard deviation 0.02. 
+In the LeakyReLU, the slope of the leak was set to 0.2 in all models. 
+While previous GAN work has used momentum to accelerate training,
+ we used the Adam optimizer with tuned hyperparameters. 
+We found the suggested learning rate of 0.001, to be too high, using 0.0002 instead.
+ Additionally, we found leaving the momentum term β1 at the suggested value of 0.9 
+resulted in training oscillation and instability while reducing it to 0.5 helped 
+stabilize training.
+
+source: arxiv
+ https://arxiv.org/pdf/1511.06434.pdf
